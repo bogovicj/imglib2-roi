@@ -37,13 +37,13 @@ import net.imglib2.IterableInterval;
 import net.imglib2.RandomAccessible;
 import net.imglib2.RandomAccessibleInterval;
 import net.imglib2.roi.util.IterableRandomAccessibleRegion;
+import net.imglib2.roi.util.PositionableWrappedIterableRegion;
 import net.imglib2.roi.util.SamplingIterableInterval;
 import net.imglib2.type.BooleanType;
 import net.imglib2.view.Views;
 
 public class Regions
 {
-	// TODO: make Positionable and Localizable
 	// TODO: bind to (respectively sample from) RandomAccessible
 	// TODO: out-of-bounds / clipping
 
@@ -58,6 +58,14 @@ public class Regions
 			return ( IterableRegion< B > ) region;
 		else
 			return IterableRandomAccessibleRegion.create( region );
+	}
+
+	public static < B extends BooleanType< B > > PositionableIterableRegion< B > positionable( final RandomAccessibleInterval< B > region )
+	{
+		if ( region instanceof PositionableIterableRegion )
+			return ( PositionableIterableRegion< B > ) region;
+		else
+			return new PositionableWrappedIterableRegion<>( Regions.iterable( region ) );
 	}
 
 	public static < T extends BooleanType< T > > long countTrue( final RandomAccessibleInterval< T > interval )
