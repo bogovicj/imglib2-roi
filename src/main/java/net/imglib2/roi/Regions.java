@@ -52,6 +52,18 @@ public class Regions
 		return SamplingIterableInterval.create( region, img );
 	}
 
+	/**
+	 * Make any {@code RandomAccessibleInterval<BooleanType>} into an
+	 * {@code IterableRegion}.
+	 * <p>
+	 * If {@code region} already is an {@code IterableRegion}, return it.
+	 * Otherwise, wrap it. This is potentially expensive, because it requires
+	 * iterating {@code region} once.
+	 *
+	 * @param region
+	 *            the region to make iterable
+	 * @return {@code region} as an {@code IterableRegion}
+	 */
 	public static < B extends BooleanType< B > > IterableRegion< B > iterable( final RandomAccessibleInterval< B > region )
 	{
 		if ( region instanceof IterableRegion )
@@ -60,6 +72,19 @@ public class Regions
 			return IterableRandomAccessibleRegion.create( region );
 	}
 
+	/**
+	 * Make any {@code RandomAccessibleInterval<BooleanType>} into an
+	 * {@code PositionableIterableRegion}.
+	 * <p>
+	 * If {@code region} already is a {@code PositionableIterableRegion}, return
+	 * it. Otherwise, wrap it. This is potentially expensive, because it
+	 * requires iterating {@code region} once, unless it already is an
+	 * {@code IterableRegion}.
+	 *
+	 * @param region
+	 *            the region to make iterable and positionable
+	 * @return {@code region} as an {@code PositionableIterableRegion}
+	 */
 	public static < B extends BooleanType< B > > PositionableIterableRegion< B > positionable( final RandomAccessibleInterval< B > region )
 	{
 		if ( region instanceof PositionableIterableRegion )
